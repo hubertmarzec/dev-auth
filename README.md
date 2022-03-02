@@ -16,3 +16,9 @@ pass: Profit!Pret_121
 00D7Z0000004reW
 AQEAQG7a79jVwYI6iKTZmLGfxDGIYTrIQ
 EYf9ivlcR9yG00CrW6OD15snCyyIab9LUgEffXYzUHIABfBnRS1xU9usaAEe7w
+
+
+
+###
+
+document.cookie = 'JSESSIONID=; path=/; domain=.k8s-devalbprofitowi-c4e82f2519-2066819137.eu-west-1.elb.amazonaws.com; expires=' + new Date(0).toUTCString();

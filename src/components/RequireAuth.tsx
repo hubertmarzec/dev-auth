@@ -14,6 +14,5 @@ export default function RequireAuth({ children }: { children: JSX.Element }) {
     // than dropping them off on the home page.
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
-
   return children;
 }

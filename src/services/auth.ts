@@ -1,4 +1,8 @@
 import * as authorizationApi from '../api/authorization';
+import {
+  useNavigate,
+} from "react-router-dom";
+const { REACT_APP_AUTH_URL } = process.env;
 
 const salesforceAuthProvider = {
   isAuthenticated: false,
@@ -11,12 +15,12 @@ const salesforceAuthProvider = {
   async getUser() {
     return authorizationApi.getUser();
   },
-  async signin(url:string, callback: VoidFunction) {
-    
+  async signin() {
+    window.location.href = REACT_APP_AUTH_URL as string;
   },
-  signout(callback: VoidFunction) {
+  signout() {
     salesforceAuthProvider.isAuthenticated = false;
-    setTimeout(callback, 100);
+    // FIXME implement
   },
 };
 

@@ -15,8 +15,9 @@ export default function AuthStatus() {
     <p style={{outline:'1px dashed blue'}}>
       Welcome {auth.user.name}!{" "}
       <button
-        onClick={() => {
-          auth.signout(() => navigate("/"));
+        onClick={async () => {
+          auth.signout();
+          navigate("/");
         }}
       >
         Sign out

@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import { useAuth } from '../hooks';
 import { salesforceAuthProvider } from '../services/auth';
+const { REACT_APP_AUTH_URL } = process.env;
 export default function DevAuthPage() {
   let navigate = useNavigate();
   let location = useLocation();
@@ -18,18 +19,26 @@ export default function DevAuthPage() {
     const url = formData.get("url") as string;
     const searchParams = new URLSearchParams(url.split('?')[1]);
     const code = searchParams.get('code') || url;
-
-    await salesforceAuthProvider.getToken(url);
-    const user = await auth.getUser();
+    await salesforceAuthProvider.getToken(code);// we don't need token, API use cookies ;/
+    const user = await auth.getSession();
     navigate(from, { replace: true });
+  }
+
+  function redirect() {
+    window.open(REACT_APP_AUTH_URL,'_blank');
   }
   return (
     <div style={{padding: '1em'}}>
       <h3>(only available in DEVELOPMENT env)</h3>
-      <form>
-          <input type="text" name="url" placeholder="Enter .../oauth2/success URL" style={{minWidth:'200px'}}/>
-          {' '}
-          <button type="submit">go</button>
+      <form onSubmit={handleSubmit}>
+          <p>
+            <button onClick={redirect} type="button">get url with code</button>
+          </p>
+          <p>
+            <input type="text" name="url" placeholder="Enter .../oauth2/success URL" style={{minWidth:'200px'}}/>
+            {' '}
+            <button type="submit">go</button>
+          </p>
       </form>
     </div>
   );
