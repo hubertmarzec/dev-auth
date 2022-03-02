@@ -1,16 +1,23 @@
-/**
- * This represents some generic auth provider API, like Firebase.
- */
-const fakeAuthProvider = {
+import * as authorizationApi from '../api/authorization';
+
+const salesforceAuthProvider = {
   isAuthenticated: false,
-  signin(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = true;
-    setTimeout(callback, 100); // fake async
+  async getToken(code:string) {
+    const token = authorizationApi.getToken(code);
+    // Magic happen here (API is cookies based not token - WTF :/)
+    salesforceAuthProvider.isAuthenticated = true;
+    return token;
+  },
+  async getUser() {
+    return authorizationApi.getUser();
+  },
+  async signin(url:string, callback: VoidFunction) {
+    
   },
   signout(callback: VoidFunction) {
-    fakeAuthProvider.isAuthenticated = false;
+    salesforceAuthProvider.isAuthenticated = false;
     setTimeout(callback, 100);
   },
 };
 
-export { fakeAuthProvider };
+export { salesforceAuthProvider };
