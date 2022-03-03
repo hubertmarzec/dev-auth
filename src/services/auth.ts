@@ -7,9 +7,8 @@ const { REACT_APP_AUTH_URL } = process.env;
 const salesforceAuthProvider = {
   isAuthenticated: false,
   async authorize(code:string) {
-    const token = authorizationApi.getToken(code);
-    // Magic happen here (API is cookies based not token - WTF :/)
-    salesforceAuthProvider.isAuthenticated = true;
+    const token = await authorizationApi.getToken(code);
+    localStorage.setItem('__token', token);
     return token;
   },
   async getUser() {
@@ -19,8 +18,7 @@ const salesforceAuthProvider = {
     window.location.href = REACT_APP_AUTH_URL as string;
   },
   signout() {
-    salesforceAuthProvider.isAuthenticated = false;
-    // FIXME implement
+    localStorage.removeItem('__token');
   },
 };
 
