@@ -6,7 +6,7 @@ const { REACT_APP_AUTH_URL } = process.env;
 
 const salesforceAuthProvider = {
   isAuthenticated: false,
-  async getToken(code:string) {
+  async authorize(code:string) {
     const token = authorizationApi.getToken(code);
     // Magic happen here (API is cookies based not token - WTF :/)
     salesforceAuthProvider.isAuthenticated = true;

@@ -1,7 +1,7 @@
 import axios from '../app/axiosClient';
 
 export const getUser = async () => {
-    const response = await axios.get('/user');
+    const response = await axios.get('/authorize/user');
     return (response.data||[]);
 }
 

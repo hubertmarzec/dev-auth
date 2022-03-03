@@ -19,7 +19,7 @@ export default function DevAuthPage() {
     const url = formData.get("url") as string;
     const searchParams = new URLSearchParams(url.split('?')[1]);
     const code = searchParams.get('code') || url;
-    await salesforceAuthProvider.getToken(code);// we don't need token, API use cookies ;/
+    await salesforceAuthProvider.authorize(code);
     const user = await auth.getSession();
     navigate(from, { replace: true });
   }
