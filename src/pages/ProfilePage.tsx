@@ -4,16 +4,6 @@ export default function ProfilePage() {
   const [data, setData] = useState < any > (null);
   
   useEffect(() => {
-    // const idCookie = '9680EE910286609E4FCBF01468F16E81';
-    // setCookie('JSESSIONID', idCookie, {
-    //   path: '/',
-    //   domain: 'k8s-devalbprofitowi-c4e82f2519-2066819137.eu-west-1.elb.amazonaws.com',
-    //   httpOnly: true,
-    //   sameSite: "none",
-    //   secure: true
-    // });
-
-
     async function fetchData() {
       const data = await authorization.getUser();
       setData(data);

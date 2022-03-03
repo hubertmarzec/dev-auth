@@ -6,6 +6,7 @@ interface AuthContextType {
   signin: () => void;
   signout: () => void;
   getSession: () => any;
+  authorize: (code:string) => void;
   bootstrapped: any;
 }
 
@@ -29,6 +30,11 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     setUser(user);
   };
 
+  const authorize = async (code:string) => {
+    await salesforceAuthProvider.authorize(code);
+    await getSession();
+  };
+
   React.useEffect(() => {
     async function fetchData() {
       await getSession();
@@ -39,7 +45,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
 
-  const value = { user, bootstrapped, signin, signout, getSession };
+  const value = { user, bootstrapped, signin, signout, getSession, authorize };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

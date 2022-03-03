@@ -6,12 +6,15 @@ import { useAuth } from '../hooks';
 import { salesforceAuthProvider } from '../services/auth';
 const { REACT_APP_AUTH_URL } = process.env;
 export default function DevAuthPage() {
-  let navigate = useNavigate();
-  let location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const state = location.state as any;
-  let auth = useAuth();
+  const auth = useAuth();
+  if (auth.user) {
+    navigate('/', { replace: true });
+  }
 
-  let from = state?.from?.pathname || "/";
+  const from = state?.from?.pathname || "/";
 
   async function handleSubmit(event: React.FormEvent < HTMLFormElement > ) {
     event.preventDefault();
@@ -19,9 +22,8 @@ export default function DevAuthPage() {
     const url = formData.get("url") as string;
     const searchParams = new URLSearchParams(url.split('?')[1]);
     const code = searchParams.get('code') || url;
-    await salesforceAuthProvider.authorize(code);
-    const user = await auth.getSession();
-    navigate(from, { replace: true });
+    
+    navigate(`/callback?code=${code}`, { replace: true });
   }
 
   function redirect() {

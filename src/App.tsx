@@ -41,6 +41,7 @@ export default function App() {
         />
       </Route>
       <Route path="/login" element={<Pages.LoginPage />} />
+      <Route path="/callback" element={<Pages.CallbackPage />} />
       {process.env.NODE_ENV === 'development' && (
         <Route path="/dev-auth" element={<Pages.DevAuthPage />} />
       )}
